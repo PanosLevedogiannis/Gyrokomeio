@@ -119,6 +119,12 @@ fly-in from «Με όλα;» (WAAPI, composite add), CSS bob float, pointer para
 (rAF only while moving), mouse/pen drag-and-throw with spring return, tap/click = hop, click on
 «Με όλα;» = burst of 24 ingredient sparks with gravity. All off under prefers-reduced-motion.
 
+GAME 2026-09-24: «Γέμισε την πίτα» section (#game, after the story; nav link "Παιχνίδι"), js/game.js.
+Canvas catch game using the site's SVG symbols rasterised once (il-meat, il-tzatziki, il-pineapple,
+il-cone-back/front added). 45 s, 3 lives, all five core items = pita «με όλα» (+50), pineapple = -1 life.
+HUD styled like the LED sign; best score in localStorage 'gk-game-best'; pauses when scrolled away or
+the tab hides; end screen has Play again / "Πείνασες; Παράγγειλε" (opens order sheet) / share.
+
 CACHE: css/js links carry ?v=<version> (index.html + 404.html). Bump it whenever css/ or js/
 changes: the preview browser once served a stale config.js (showed the old address 11).
 

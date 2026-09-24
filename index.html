@@ -28,7 +28,7 @@
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="preload" href="fonts/sofia-sans-extra-condensed-greek.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/sofia-sans-greek.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=20260924c">
+  <link rel="stylesheet" href="css/style.css?v=20260924d">
 
   <script>
     /* Pick the language before first paint: ?lang= wins, then the saved choice,
@@ -140,6 +140,8 @@
       <feComposite in="a" in2="SourceGraphic" operator="in" result="g"/>
       <feBlend in="g" in2="SourceGraphic" mode="multiply"/>
     </filter>
+    <linearGradient id="g-bowl" x1="0" x2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#E9ECE4"/><stop offset="1" stop-color="#B9C0B1"/></linearGradient>
+    <linearGradient id="g-pine" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFD85A"/><stop offset=".55" stop-color="#F2AE2A"/><stop offset="1" stop-color="#C77A12"/></linearGradient>
   </defs>
 
   <!-- Tomato slice -->
@@ -268,6 +270,61 @@
     <path d="M30 70V14M30 32l-11-9M30 46l13-10M30 58l-12-8M30 24l8-6" stroke="#A9E88A" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".85"/>
     <path d="M18 30c-2 10 0 22 6 32" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none" opacity=".3"/>
   </symbol>
+
+  <!-- Gyros meat slices -->
+  <symbol id="il-meat" viewBox="0 0 100 72">
+    <path d="M8 52c4-18 22-30 40-26 6-10 22-12 30-2 10 0 18 10 14 22-8 12-30 16-48 14-18 2-38 2-36-8Z" fill="url(#g-meat)"/>
+    <path d="M14 30c10-14 30-18 42-8-8 2-18 8-22 16-8-4-14-6-20-8Z" fill="url(#g-meat)"/>
+    <path d="M52 18c10-8 26-6 32 6-8-2-18 0-24 6-2-6-4-10-8-12Z" fill="url(#g-meat)"/>
+    <path d="M18 50c10-8 24-10 34-4M52 44c8-6 20-6 28 0M22 32c8-6 18-8 26-4M58 20c6-4 14-4 20 0" stroke="#D38C5A" stroke-width="3" stroke-linecap="round" fill="none" opacity=".8"/>
+    <path d="M12 58c14 4 34 4 50 0M60 58c10-2 20-6 26-12" stroke="#3F1C0B" stroke-width="3" stroke-linecap="round" fill="none" opacity=".55"/>
+    <circle cx="36" cy="44" r="2" fill="#F2C79E" opacity=".6"/><circle cx="70" cy="38" r="1.8" fill="#F2C79E" opacity=".6"/>
+  </symbol>
+
+  <!-- Tzatziki in a small bowl -->
+  <symbol id="il-tzatziki" viewBox="0 0 100 82">
+    <path d="M14 38C16 16 36 6 52 12c16-6 36 6 36 26Z" fill="url(#g-tzatziki)"/>
+    <path d="M30 22c6-5 14-6 20-3" stroke="#fff" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <g fill="#6FAE4A"><ellipse cx="38" cy="30" rx="2.6" ry="1.4"/><ellipse cx="58" cy="24" rx="2.2" ry="1.2" transform="rotate(20 58 24)"/><ellipse cx="66" cy="33" rx="2.4" ry="1.3"/><ellipse cx="48" cy="35" rx="2" ry="1.1"/></g>
+    <g fill="#4E8F2E"><circle cx="44" cy="26" r="1.2"/><circle cx="72" cy="28" r="1.1"/><circle cx="30" cy="34" r="1.1"/></g>
+    <ellipse cx="54" cy="30" rx="6" ry="2.4" fill="#D8C23E" opacity=".75"/>
+    <path d="M6 38h88c-2 24-20 38-44 38S8 62 6 38Z" fill="url(#g-bowl)"/>
+    <ellipse cx="50" cy="38" rx="44" ry="5" fill="#F7F8F4"/>
+    <path d="M14 46c4 14 16 22 30 24" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".8"/>
+    <path d="M30 50h40" stroke="#5B8BB0" stroke-width="3" stroke-linecap="round" opacity=".5"/>
+  </symbol>
+
+  <!-- Pineapple: does NOT go in a pita -->
+  <symbol id="il-pineapple" viewBox="0 0 80 112">
+    <g fill="url(#g-leaf)">
+      <path d="M40 40C36 26 30 14 20 6c12 2 18 12 20 22 2-12 6-22 16-26-6 10-8 22-8 30Z"/>
+      <path d="M40 42C30 34 18 30 6 32c10-6 22-6 32 2Z"/>
+      <path d="M40 42c10-8 22-12 34-10-10-6-22-6-32 2Z"/>
+    </g>
+    <ellipse cx="40" cy="74" rx="28" ry="36" fill="url(#g-pine)"/>
+    <g stroke="#B26A12" stroke-width="2" opacity=".7" fill="none">
+      <path d="M18 56l40 40M14 70l30 32M24 44l40 40M36 40l30 30"/>
+      <path d="M62 56 22 96M66 70 36 102M56 44 16 84M44 40 14 70"/>
+    </g>
+    <g fill="#8A4F0C" opacity=".6"><circle cx="40" cy="60" r="1.6"/><circle cx="30" cy="72" r="1.6"/><circle cx="50" cy="72" r="1.6"/><circle cx="40" cy="84" r="1.6"/><circle cx="28" cy="88" r="1.4"/><circle cx="52" cy="88" r="1.4"/></g>
+    <ellipse cx="30" cy="62" rx="8" ry="14" fill="#fff" opacity=".18"/>
+  </symbol>
+
+  <!-- The player's pita, in two layers so the fillings sit between bread and paper -->
+  <symbol id="il-cone-back" viewBox="0 36 200 176">
+    <path d="M20 110C22 70 58 42 100 40c42 2 78 30 80 70Z" fill="url(#g-pita)"/>
+    <ellipse cx="42" cy="84" rx="7" ry="5" fill="url(#g-toast)"/><ellipse cx="158" cy="80" rx="6" ry="4" fill="url(#g-toast)"/><ellipse cx="148" cy="60" rx="5" ry="3.5" fill="url(#g-toast)"/><ellipse cx="58" cy="60" rx="5" ry="3.5" fill="url(#g-toast)"/>
+    <path d="M40 106c18-14 46-20 60-20s42 6 60 20Z" fill="#E4B774"/>
+  </symbol>
+  <symbol id="il-cone-front" viewBox="0 36 200 176">
+    <g filter="url(#f-grain)">
+      <path d="M20 106h160l-50 94q-30 16-60 0Z" fill="url(#g-paper)"/>
+      <path d="M16 99h168l-4 17H20Z" fill="url(#g-paper-rim)"/>
+    </g>
+    <path d="M20 116h160" stroke="#A8743A" stroke-width="2" opacity=".7"/>
+    <path d="M58 132l14 40M100 118v70M140 128l-12 42" stroke="#9E6B34" stroke-width="2" stroke-linecap="round" opacity=".35"/>
+  </symbol>
+  <symbol id="il-cone" viewBox="0 36 200 176"><use href="#il-cone-back" width="200" height="176" y="36"/><use href="#il-cone-front" width="200" height="176" y="36"/></symbol>
   </svg>
 
   <div class="top-sentinel" aria-hidden="true"></div>
@@ -284,6 +341,7 @@
         <a href="#menu" data-i18n="nav.menu">Μενού</a>
         <a href="#specials" data-i18n="nav.specials">Πιάτα ημέρας</a>
         <a href="#story" data-i18n="nav.story">Ιστορία</a>
+        <a href="#game" data-i18n="nav.game">Παιχνίδι</a>
         <a href="#photos" data-i18n="nav.photos">Φωτογραφίες</a>
         <a href="#reviews" data-i18n="nav.reviews">Κριτικές</a>
         <a href="#contact" data-i18n="nav.contact">Επικοινωνία</a>
@@ -309,6 +367,7 @@
         <a href="#menu" data-i18n="nav.menu">Μενού</a>
         <a href="#specials" data-i18n="nav.specials">Πιάτα ημέρας</a>
         <a href="#story" data-i18n="nav.story">Ιστορία</a>
+        <a href="#game" data-i18n="nav.game">Παιχνίδι</a>
         <a href="#photos" data-i18n="nav.photos">Φωτογραφίες</a>
         <a href="#reviews" data-i18n="nav.reviews">Κριτικές</a>
         <a href="#contact" data-i18n="nav.contact">Επικοινωνία</a>
@@ -483,6 +542,54 @@
             <li data-i18n="story.f5">Χειροποίητα καλαμάκια των 110 γραμμαρίων</li>
           </ul>
           <p data-i18n="story.p3">Το καλοκαίρι βγάζουμε τραπέζια στην πλατεία, ακριβώς απέναντι. Είμαστε ανοιχτά κάθε μέρα, όλο τον χρόνο.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GAME -->
+    <section class="section game" id="game" aria-labelledby="game-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="game-title" data-i18n="game.title">Γέμισε την πίτα</h2>
+          <p data-i18n="game.lede">Πιάσε γύρο, ντομάτα, κρεμμύδι, τζατζίκι και πατάτες. Μάζεψε και τα πέντε για μια πίτα «με όλα». Τον ανανά άσ’ τον να πέσει.</p>
+        </div>
+        <div class="game-stage" data-game>
+          <canvas class="game-canvas" tabindex="0" aria-label="Παιχνίδι: κούνα την πίτα και πιάσε τα υλικά" data-i18n-attr="aria-label=game.canvasLabel"></canvas>
+          <div class="game-hud" aria-hidden="true">
+            <div class="hud-cell"><span data-i18n="game.score">Πόντοι</span><b data-game-score>0</b></div>
+            <div class="hud-cell"><span data-i18n="game.pitas">Πίτες</span><b data-game-pitas>0</b></div>
+            <div class="hud-cell"><span data-i18n="game.time">Χρόνος</span><b data-game-time>45</b></div>
+            <div class="hud-lives" data-game-lives>
+              <svg viewBox="0 0 200 176"><use href="#il-cone"/></svg><svg viewBox="0 0 200 176"><use href="#il-cone"/></svg><svg viewBox="0 0 200 176"><use href="#il-cone"/></svg>
+            </div>
+            <div class="hud-need" data-game-need>
+              <svg data-need="meat" viewBox="0 0 100 72"><use href="#il-meat"/></svg>
+              <svg data-need="tomato" viewBox="0 0 100 100"><use href="#il-tomato"/></svg>
+              <svg data-need="onion" viewBox="0 0 100 100"><use href="#il-onion"/></svg>
+              <svg data-need="tzatziki" viewBox="0 0 100 82"><use href="#il-tzatziki"/></svg>
+              <svg data-need="fries" viewBox="0 0 120 160"><use href="#il-fries"/></svg>
+            </div>
+          </div>
+          <div class="game-screen" data-game-start>
+            <button class="btn btn-primary btn-big" type="button" data-game-play data-i18n="game.play">Παίξε</button>
+            <p class="game-how" data-i18n="game.how">Κούνα την πίτα με το ποντίκι, με το δάχτυλο ή με τα βελάκια.</p>
+            <p class="game-best" data-game-best></p>
+          </div>
+          <div class="game-screen" data-game-paused hidden>
+            <p class="game-big" data-i18n="game.paused">Παύση</p>
+            <button class="btn btn-primary" type="button" data-game-resume data-i18n="game.resume">Συνέχεια</button>
+          </div>
+          <div class="game-screen" data-game-over hidden>
+            <p class="game-big" data-i18n="game.overTitle">Τέλος!</p>
+            <p class="game-result" data-game-result role="status"></p>
+            <p class="game-best" data-game-best></p>
+            <div class="game-actions">
+              <button class="btn btn-primary" type="button" data-game-play data-i18n="game.again">Ξαναπαίξε</button>
+              <button class="btn btn-cream" type="button" data-open-order data-i18n="game.order">Πείνασες; Παράγγειλε</button>
+              <button class="text-link" type="button" data-game-share data-i18n="game.share">Στείλ’ το σε φίλο</button>
+            </div>
+          </div>
+          <p class="game-toast" data-game-toast aria-hidden="true"></p>
         </div>
       </div>
     </section>
@@ -695,9 +802,10 @@
     <button type="button" class="icon-btn lb-next" data-lb-next aria-label="Επόμενη" data-i18n-attr="aria-label=lightbox.next"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
   </dialog>
 
-  <script src="js/config.js?v=20260924c"></script>
-  <script src="js/menu.js?v=20260924c"></script>
-  <script src="js/i18n.js?v=20260924c"></script>
-  <script src="js/main.js?v=20260924c"></script>
+  <script src="js/config.js?v=20260924d"></script>
+  <script src="js/menu.js?v=20260924d"></script>
+  <script src="js/i18n.js?v=20260924d"></script>
+  <script src="js/main.js?v=20260924d"></script>
+  <script src="js/game.js?v=20260924d"></script>
 </body>
 </html>
