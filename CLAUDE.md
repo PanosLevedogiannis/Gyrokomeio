@@ -1,8 +1,8 @@
 # Gyrokomeio: website for Γυροκομείο Grill, Nafplio
 
 You are continuing a build started in claude.ai. Read this whole file first.
-This file is committed to the PRIVATE repo so the user's partner (a collaborator) can read it.
-If the repo is ever made public, take this file out of git first (add it back to .gitignore).
+This file is committed and the repo is PUBLIC (user's choice, 2026-09-24) so the partner (gMerm) can
+see the site on github.io and open the project in Claude. Never put secrets in it.
 Talk to the user in whatever language he writes (Greek or English), casual and short.
 He likes hands-on iteration and dislikes over-engineering: small steps, show results.
 
@@ -64,8 +64,9 @@ go-live checklist), .nojekyll. QA passed at 390x844 and 1440x900, el/en, light/d
 no sideways scroll, no JS errors (only 404s for photos not taken yet), Lighthouse
 a11y 100, SEO 100, perf 95-100. Gallery uses HEAD requests to see which photos exist.
 
-GitHub: repo https://github.com/PanosLevedogiannis/Gyrokomeio is PRIVATE (user's choice),
-so NO GitHub Pages yet. gh CLI is not installed; the repo was created in Chrome, and git
+GitHub: repo https://github.com/PanosLevedogiannis/Gyrokomeio is now PUBLIC with GitHub Pages at
+https://panoslevedogiannis.github.io/Gyrokomeio/ (preview: noindex meta until the real launch;
+og:image is absolute on github.io). Earlier it was private. gh CLI is not installed; the repo was created in Chrome, and git
 push over HTTPS works with the macOS keychain. og:image is relative (no live domain yet).
 Next: when the user wants it online, make the repo public and enable Pages (or other hosting),
 then set og:image to the absolute URL.

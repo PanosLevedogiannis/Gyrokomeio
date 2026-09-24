@@ -30,6 +30,7 @@ python3 -m http.server 8000
 
 ## Πριν βγει κανονικά στον αέρα
 
+- [ ] Σβήσε τη γραμμή `<meta name="robots" content="noindex">` στο `index.html` (τώρα κρύβει το preview από τη Google)
 - [ ] `showPlaceholders: false` στο `js/config.js` (κρύβει τα κουτάκια «Θέση για…»)
 - [ ] Φωτογραφίες στο `images/` (λίστα λήψεων: [images/README.md](images/README.md))
 - [ ] 3 έως 6 πραγματικές κριτικές από το Google στο `js/config.js`, αυτούσιες
