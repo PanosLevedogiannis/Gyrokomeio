@@ -20,17 +20,18 @@ window.SITE = {
   email: 'gyrokomeio.grill@gmail.com',
 
   address: {
-    el: 'Σιδηράς Μεραρχίας 11 & Πολυζωίδου, Ναύπλιο 211 00',
-    en: '11 Sidiras Merarchias & Polyzoidou St, Nafplio 211 00'
+    el: 'Σιδηράς Μεραρχίας 5, Ναύπλιο 211 00',
+    en: '5 Sidiras Merarchias St, Nafplio 211 00'
   },
 
   map: {
     // Their own Google Maps link (from the current site).
     link: 'https://maps.app.goo.gl/kaYg6ebHEtypM1dn9',
     directions: 'https://www.google.com/maps/dir/?api=1&destination=' +
-      encodeURIComponent('Γυροκομείο Grill, Σιδηράς Μεραρχίας 11, Ναύπλιο 211 00'),
+      encodeURIComponent('Gyro-komeio, Σιδηράς Μεραρχίας 5, Ναύπλιο 211 00'),
+    // Shown on the page all the time (lazy: it loads when you scroll near it).
     embed: 'https://maps.google.com/maps?q=' +
-      encodeURIComponent('Σιδηράς Μεραρχίας 11 & Πολυζωίδου, Ναύπλιο') + '&z=17&output=embed'
+      encodeURIComponent('Gyro-komeio, Σιδηράς Μεραρχίας 5, Ναύπλιο 211 00') + '&z=17&hl=el&output=embed'
   },
 
   // Opening hours in Greek time. Monday first. A closing time earlier than
@@ -98,6 +99,24 @@ window.SITE = {
     { name: 'Μαρία Κ.', stars: 5, text: '...', when: { el: 'Αύγουστος 2026', en: 'August 2026' } },
   */
   reviews: [
+    { name: 'Dancing Shadow', stars: 5, lang: 'el',
+      text: 'Εξαιρετικό εστιατόριο! Δοκιμάσαμε γουρουνόπουλο και γύρο κοτόπουλο και ήταν όλα πραγματικά τέλεια. […]',
+      when: { el: 'Σεπτέμβριος 2026', en: 'September 2026' } },
+    { name: 'Fotis S.', stars: 5, lang: 'el',
+      text: 'Από τα καλύτερα γυράδικα που έχουμε επισκεφθεί! […] Η μερίδα είναι τεράστια, χορταστική και γεμάτη με ποιοτικά, φρέσκα υλικά.',
+      when: { el: 'Αύγουστος 2026', en: 'August 2026' } },
+    { name: 'Παύλος Χ.', stars: 5, lang: 'el',
+      text: 'Εξαιρετικό σε προϊόντα και τιμές αμεσότητα στην εξυπηρέτηση με ανθρώπους επαγγελματίες και με καλή διάθεση χαμογελαστους και εύκολη πρόσβαση',
+      when: { el: 'Μάιος 2026', en: 'May 2026' } },
+    { name: 'Monica P.', stars: 5, lang: 'el',
+      text: 'Αν βρεθείτε Ναύπλιο, αξίζει 100%! Πολύ όμορφος και προσεγμένος χώρος, με εξαιρετικό φαγητό και καλές τιμές. […]',
+      when: { el: 'Μάιος 2026', en: 'May 2026' } },
+    { name: 'Niki B.', stars: 5, lang: 'el',
+      text: '[…] Αν και σε ώρα αιχμής χωρίς κράτηση δεν περιμέναμε καθόλου!! Το προσωπικό ήταν ευγενέστατο και η ατμόσφαιρα πολύ φιλική με ωραία μουσική! […]',
+      when: { el: 'Απρίλιος 2026', en: 'April 2026' } },
+    { name: 'Stavros G.', stars: 5, lang: 'el',
+      text: 'Ένας εξαιρετικός προορισμός για να δοκιμάσει κανείς ελληνικά σουβλάκια! […]',
+      when: { el: 'Νοέμβριος 2025', en: 'November 2025' } }
   ],
 
   /*

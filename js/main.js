@@ -251,7 +251,7 @@
     if (week.length && week[0] && week.every((d) => sig(d) === sig(week[0]))) {
       return t('hours.everyDay', { open: week[0].open, close: week[0].close });
     }
-    // Group days with the same hours: "Δευτέρα–Παρασκευή: 12:00 έως 01:00"
+    // Group days with the same hours: "Δευτέρα - Παρασκευή: 12:00 έως 01:00"
     const days = t('days');
     const groups = [];
     week.forEach((d, i) => {
@@ -260,7 +260,7 @@
       else groups.push({ sig: sig(d), from: i, to: i, d });
     });
     return groups.map((g) => {
-      const name = g.from === g.to ? days[g.from] : days[g.from] + '–' + days[g.to];
+      const name = g.from === g.to ? days[g.from] : days[g.from] + ' - ' + days[g.to];
       const time = g.d && g.d.open ? t('hours.range', { open: g.d.open, close: g.d.close }) : t('hours.closed');
       return name + ': ' + time;
     }).join('\n');
@@ -353,9 +353,9 @@
     $$('a[href="#photos"]').forEach((a) => { a.hidden = none; });
 
     viewer = [];
-    box.replaceChildren(...shown.map((it) => {
+    box.replaceChildren(...shown.map((it, i) => {
       const shape = RATIO[it.cfg.shape] ? it.cfg.shape : 'square';
-      const fig = h('figure', { class: 'g-item g-' + shape });
+      const fig = h('figure', { class: 'g-item g-' + shape, style: '--d:' + Math.min(i, 8) });
       if (it.state === 'missing') {
         fig.append(note(it.cfg, RATIO[shape], 'ph'));
         return fig;
@@ -411,9 +411,9 @@
   const panelBox = $('[data-menu-panels]');
   let activeCat = MENU[0] ? MENU[0].id : '';
 
-  function menuItem(it) {
+  function menuItem(it, i) {
     const desc = lang === 'en' ? it.den : it.del;
-    return h('li', { class: 'menu-item' },
+    return h('li', { class: 'menu-item', style: '--d:' + Math.min(i + 1, 14) },
       h('p', { class: 'mi-name' },
         pick(it),
         lang === 'en' && it.el !== it.en ? h('span', { class: 'mi-el', lang: 'el' }, it.el) : null
@@ -441,7 +441,7 @@
     },
       cat.note ? h('p', { class: 'menu-note' }, pick(cat.note)) : null,
       cat.compact
-        ? h('ul', { class: 'x-chips' }, cat.items.map((it) => h('li', { class: 'x-chip' }, pick(it))))
+        ? h('ul', { class: 'x-chips' }, cat.items.map((it, i) => h('li', { class: 'x-chip', style: '--d:' + Math.min(i + 1, 14) }, pick(it))))
         : h('ul', { class: 'menu-list' }, cat.items.map(menuItem))
     )));
 
@@ -471,7 +471,10 @@
         keepTabInView(b);
       }
     });
-    $$('[role="tabpanel"]', panelBox).forEach((p) => { p.hidden = p.id !== 'panel-' + id; });
+    $$('[role="tabpanel"]', panelBox).forEach((p) => {
+      p.hidden = p.id !== 'panel-' + id;
+      p.classList.toggle('enter', !p.hidden);
+    });
 
     // When the tabs are stuck under the header, start the new list from its top.
     const stick = parseFloat(getComputedStyle(tabList).top) || 0;
@@ -555,7 +558,7 @@
       h('blockquote', { lang: r.lang || null }, h('p', null, r.text)),
       h('figcaption', null,
         h('span', { class: 'review-name' }, r.name),
-        r.when ? h('span', { class: 'review-when' }, pick(r.when)) : null
+        r.when ? h('span', { class: 'review-when' }, t('reviews.source', { when: pick(r.when) })) : null
       )
     ));
     if (!cards.length && SITE.showPlaceholders) {
@@ -569,22 +572,12 @@
     box.hidden = !cards.length;
   }
 
-  /* ---------- 8. Map (nothing loads from Google before the click) ---------- */
+  /* ---------- 8. Map (always on the page, loads when you scroll near it) ---------- */
 
-  $$('[data-load-map]').forEach((btn) => btn.addEventListener('click', () => {
-    const box = btn.closest('[data-map]');
+  $$('[data-map-frame]').forEach((frame) => {
     const map = SITE.map || {};
-    if (!box || !map.embed) return;
-    const frame = h('iframe', {
-      src: map.embed,
-      title: 'Google Maps: ' + pick(SITE.address),
-      loading: 'lazy',
-      referrerpolicy: 'no-referrer-when-downgrade',
-      allowfullscreen: true
-    });
-    box.replaceChildren(frame);
-    frame.focus();
-  }));
+    if (map.embed) frame.src = map.embed;
+  });
 
   /* ---------- 9. Dialogs, mobile nav, header ---------- */
 
@@ -639,10 +632,27 @@
     else wide.addListener(onWide);
   }
 
+  // Hairline under the header once the page moves (no scroll listener).
   const header = $('.site-header');
-  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
-  addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  const sentinel = $('.top-sentinel');
+  if (header && sentinel && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => header.classList.toggle('is-scrolled', !e.isIntersecting)).observe(sentinel);
+  }
+
+  // Mark the section you are reading in the desktop nav.
+  const navLinks = $$('.nav a[href^="#"]');
+  if (navLinks.length && 'IntersectionObserver' in window) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        navLinks.forEach((a) => {
+          if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    navLinks.forEach((a) => { const sec = $(a.getAttribute('href')); if (sec) spy.observe(sec); });
+  }
 
   $$('[data-set-lang]').forEach((b) => b.addEventListener('click', () => {
     if (b.dataset.setLang !== lang) setLang(b.dataset.setLang, true);
@@ -734,10 +744,195 @@
     });
   }
 
+  /* ---------- Motion: reveal blocks as they scroll into view ---------- */
+
+  function setupReveal() {
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (calm || !('IntersectionObserver' in window)) return;
+    root.classList.add('motion');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        if (el.classList.contains('reveal')) {
+          Array.from(el.children).forEach((c, i) => c.style.setProperty('--d', Math.min(i, 8)));
+        }
+        el.classList.add('is-in');
+        io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    const groups = ['.quick-grid', '.section-head', '[data-specials]', '.menu-panels', '.menu-foot',
+      '.order-head', '.order-tiles', '.story-text', '[data-gallery]', '[data-reviews]', '.reviews-actions',
+      '.contact-info', '.footer-grid'];
+    const singles = ['.story-visual', '.contact-form'];
+    groups.forEach((sel) => $$(sel).forEach((el) => { el.classList.add('reveal'); io.observe(el); }));
+    singles.forEach((sel) => $$(sel).forEach((el) => { el.classList.add('reveal-self'); io.observe(el); }));
+  }
+
+  /* ---------- The food: flies out of «Με όλα;», floats, follows the
+     pointer, can be grabbed and thrown, and bursts when you click the
+     phrase. All of it is off with prefers-reduced-motion. ---------- */
+
+  const SPARKS = { 'il-tomato': '0 0 100 100', 'il-onion': '0 0 100 100', 'il-fry': '0 0 16 80', 'il-pepper': '0 0 60 60', 'il-leaf': '0 0 60 80', 'il-lemon': '0 0 100 62' };
+
+  function setupFood() {
+    const items = $$('.deco');
+    if (!items.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const fine = matchMedia('(pointer: fine)').matches;
+    const bodies = items.map((el) => ({
+      el, inner: $('.deco-inner', el), box: el.parentElement,
+      depth: parseFloat(el.dataset.depth) || 0.5,
+      x: 0, y: 0, vx: 0, vy: 0, r: 0, vr: 0, drag: null, justDragged: false
+    }));
+    let px = 0;
+    let py = 0;
+    let running = false;
+
+    // A soft spring pulls every piece towards its parallax target.
+    function frame() {
+      let moving = false;
+      for (const b of bodies) {
+        const tx = px * 28 * b.depth;
+        const ty = py * 22 * b.depth;
+        if (!b.drag) {
+          b.vx = (b.vx + (tx - b.x) * 0.07) * 0.82;
+          b.vy = (b.vy + (ty - b.y) * 0.07) * 0.82;
+          b.x += b.vx;
+          b.y += b.vy;
+        }
+        const tilt = Math.max(-30, Math.min(30, b.vx * 1.6));
+        b.vr = (b.vr + (tilt - b.r) * 0.12) * 0.78;
+        b.r += b.vr;
+        b.el.style.translate = `${b.x.toFixed(2)}px ${b.y.toFixed(2)}px`;
+        b.el.style.setProperty('--wob', `${b.r.toFixed(2)}deg`);
+        if (b.drag || Math.abs(b.vx) + Math.abs(b.vy) + Math.abs(b.vr) + Math.abs(b.r) > 0.03 ||
+            Math.abs(tx - b.x) + Math.abs(ty - b.y) > 0.1) moving = true;
+      }
+      if (moving) requestAnimationFrame(frame);
+      else running = false;
+    }
+    const kick = () => {
+      if (!running) { running = true; requestAnimationFrame(frame); }
+    };
+
+    if (fine) {
+      addEventListener('pointermove', (e) => {
+        px = (e.clientX / innerWidth) * 2 - 1;
+        py = (e.clientY / innerHeight) * 2 - 1;
+        kick();
+      }, { passive: true });
+    }
+
+    function hop(b) {
+      b.inner.animate([
+        { transform: 'translateY(0) scale(1, 1) rotate(0deg)' },
+        { transform: 'translateY(6px) scale(1.14, .84) rotate(0deg)', offset: 0.14 },
+        { transform: 'translateY(-44px) scale(.9, 1.12) rotate(-190deg)', offset: 0.5 },
+        { transform: 'translateY(5px) scale(1.1, .9) rotate(-360deg)', offset: 0.84 },
+        { transform: 'translateY(0) scale(1, 1) rotate(-360deg)' }
+      ], { duration: 820, easing: 'ease-out', composite: 'add' });
+    }
+
+    bodies.forEach((b) => {
+      // Mouse and pen can grab and throw; a finger just taps, so the page still scrolls.
+      b.el.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'touch' || e.button !== 0) return;
+        e.preventDefault();
+        b.el.setPointerCapture(e.pointerId);
+        b.drag = { id: e.pointerId, sx: e.clientX - b.x, sy: e.clientY - b.y, lx: e.clientX, ly: e.clientY, moved: 0 };
+        b.el.classList.add('is-grabbed');
+        b.box.classList.add('is-dragging');
+        kick();
+      });
+      b.el.addEventListener('pointermove', (e) => {
+        const d = b.drag;
+        if (!d || d.id !== e.pointerId) return;
+        const nx = e.clientX - d.sx;
+        const ny = e.clientY - d.sy;
+        b.vx = nx - b.x;
+        b.vy = ny - b.y;
+        b.x = nx;
+        b.y = ny;
+        d.moved += Math.abs(e.clientX - d.lx) + Math.abs(e.clientY - d.ly);
+        d.lx = e.clientX;
+        d.ly = e.clientY;
+      });
+      const release = (e) => {
+        const d = b.drag;
+        if (!d || d.id !== e.pointerId) return;
+        b.drag = null;
+        b.justDragged = d.moved > 6;
+        b.el.classList.remove('is-grabbed');
+        if (!bodies.some((o) => o.drag && o.box === b.box)) b.box.classList.remove('is-dragging');
+        kick();
+      };
+      b.el.addEventListener('pointerup', release);
+      b.el.addEventListener('pointercancel', release);
+      b.el.addEventListener('click', () => {
+        if (b.justDragged) { b.justDragged = false; return; }
+        hop(b);
+      });
+    });
+
+    // Entrance: every piece flies out of the phrase to its place.
+    const big = $('.hero-big');
+    const heroBodies = bodies.filter((b) => b.box.classList.contains('hero-deco'));
+    if (big) {
+      const c = big.getBoundingClientRect();
+      const cx = c.left + c.width / 2;
+      const cy = c.top + c.height / 2;
+      heroBodies.forEach((b, i) => {
+        const r = b.inner.getBoundingClientRect();
+        if (!r.width) return;
+        const dx = cx - (r.left + r.width / 2);
+        const dy = cy - (r.top + r.height / 2);
+        b.inner.animate([
+          { transform: `translate(${dx}px, ${dy}px) scale(.1) rotate(-200deg)`, opacity: 0 },
+          { transform: `translate(${dx}px, ${dy}px) scale(.25) rotate(-160deg)`, opacity: 1, offset: 0.1 },
+          { transform: 'translate(0, 0) scale(1) rotate(0deg)', opacity: 1 }
+        ], { duration: 1400, delay: 500 + i * 95, easing: 'cubic-bezier(.3, 1.25, .4, 1)', fill: 'backwards', composite: 'add' });
+      });
+
+      // Click the phrase: a burst of ingredients, and everything hops.
+      const hero = big.closest('.hero');
+      big.addEventListener('click', (e) => {
+        const hb = hero.getBoundingClientRect();
+        const ox = e.clientX - hb.left;
+        const oy = e.clientY - hb.top;
+        const ids = Object.keys(SPARKS);
+        for (let i = 0; i < 24; i++) {
+          const id = ids[i % ids.length];
+          const size = id === 'il-fry' ? 12 + Math.random() * 8 : 24 + Math.random() * 28;
+          const spark = h('div', { class: 'spark', style: `left:${ox}px;top:${oy}px;width:${size}px` });
+          spark.innerHTML = `<svg viewBox="${SPARKS[id]}" aria-hidden="true"><use href="#${id}"/></svg>`;
+          hero.append(spark);
+          const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.4;
+          const speed = 420 + Math.random() * 460;
+          const vx = Math.cos(angle) * speed;
+          const vy = Math.sin(angle) * speed;
+          const spin = (Math.random() - 0.5) * 1000;
+          const T = 1.2 + Math.random() * 0.6;
+          const frames = [];
+          for (let k = 0; k <= 12; k++) {
+            const t = (T * k) / 12;
+            frames.push({
+              transform: `translate(${vx * t - size / 2}px, ${vy * t + 700 * t * t - size / 2}px) rotate(${spin * t}deg) scale(${k ? 1 : 0.3})`,
+              opacity: k > 9 ? 1 - (k - 9) / 3 : 1
+            });
+          }
+          spark.animate(frames, { duration: T * 1000, easing: 'linear' }).finished.then(() => spark.remove());
+        }
+        heroBodies.forEach((b, i) => setTimeout(() => hop(b), 60 + i * 45));
+      });
+    }
+  }
+
   /* ---------- Start ---------- */
 
   setupSlots();
+  setupReveal();
   setLang(lang, false);
+  setupFood();
   probeGallery().then(renderGallery);
   setInterval(updateStatus, 60 * 1000);
 })();

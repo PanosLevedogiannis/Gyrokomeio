@@ -21,16 +21,16 @@ window.I18N = {
     'cta.call': 'Call',
     'cta.menu': 'See the menu',
     'cta.order': 'Order',
-    'cta.orderNow': 'Order now',
     'cta.directions': 'Directions',
 
-    'hero.kicker': 'Gyrokomeio Grill, a grill house in Nafplio',
+    'hero.kicker': 'Gyrokomeio Grill, a grill house in Nafplio.',
+    'hero.order': '“One gyros pita, please.”',
     'hero.ingLabel': 'What «με όλα» means',
     'ing.tomato': 'tomato',
     'ing.onion': 'onion',
     'ing.tzatziki': 'tzatziki',
     'ing.fries': 'fries',
-    'hero.lede': '“Me óla?” means “with everything?”, and it’s the question you’ll hear at our counter. Say yes. We’ve been serving gyros, handmade skewers, kebab and grill plates on this corner of Nafplio since 2011.',
+    'hero.lede': '“Me óla?” means “with everything?”. Our counter’s question since 2011, in the heart of Nafplio.',
 
     'quick.label': 'Quick info',
     'quick.hours': 'Opening hours',
@@ -48,9 +48,8 @@ window.I18N = {
     'menu.allergens': 'Allergies or intolerances? Tell us before you order and we’ll tell you what’s in each dish.',
 
     'order.title': 'Order',
+    'order.online': 'Order online',
     'order.text': 'Delivery in and around Nafplio, minimum order applies. Or grab it to go from the counter.',
-    'order.wolt': 'Order on Wolt',
-    'order.efood': 'Order on efood',
 
     'story.title': 'Why Gyrokomeio?',
     'story.p1': 'Gyros plus <span lang="el">γηροκομείο</span>, the Greek word for a retirement home. The pun has stuck with us since we opened on this corner of Nafplio in July 2011: this is where gyros spends its golden years.',
@@ -71,8 +70,7 @@ window.I18N = {
     'reviews.write': 'Write a review',
 
     'contact.title': 'Contact',
-    'contact.showMap': 'Show map',
-    'contact.mapNote': 'The map loads from Google Maps when you open it.',
+    'contact.mapTitle': 'Map: Gyrokomeio Grill, 5 Sidiras Merarchias, Nafplio',
     'contact.allYear': 'All year round',
     'contact.follow': 'Follow us',
 
@@ -98,7 +96,6 @@ window.I18N = {
     'footer.order': 'Order',
 
     'bar.label': 'Quick actions',
-    'bar.order': 'Order',
 
     'sheet.title': 'How would you like to order?',
     'sheet.phone': 'By phone',
@@ -107,7 +104,7 @@ window.I18N = {
     'close': 'Close',
 
     'privacy.title': 'Privacy',
-    'privacy.body': '<p>This site uses no tracking cookies and no advertising tools. It only remembers the language you picked, in your own browser.</p><p>The Google map only loads when you tap “Show map”.</p><p>Messages from the form go through the FormSubmit service to our email. We only use them to reply to you.</p><p>Questions about any of this: gyrokomeio.grill@gmail.com</p>',
+    'privacy.body': '<p>We use no tracking cookies and no advertising tools. It only remembers the language you picked, in your own browser.</p><p>The Contact section shows a Google Maps map. When it loads, Google may receive data under its own privacy policy.</p><p>Messages from the form go through the FormSubmit service to our email. We only use them to reply to you.</p><p>Questions about any of this: gyrokomeio.grill@gmail.com</p>',
 
     'lightbox.label': 'Photo',
     'lightbox.prev': 'Previous photo',
@@ -154,6 +151,7 @@ window.I18N = {
     'reviews.slot': { el: 'Θέση για πραγματική κριτική από το Google', en: 'Space for a real Google review' },
     'reviews.slotHow': { el: 'Αντίγραψέ την αυτούσια στο js/config.js, στο reviews.', en: 'Copy it word for word into js/config.js, under reviews.' },
     'reviews.stars': { el: '{n} από 5 αστέρια', en: '{n} out of 5 stars' },
+    'reviews.source': { el: 'Κριτική στο Google, {when}', en: 'Google review, {when}' },
 
     'photo.slot': { el: 'Φωτογραφία: {hint}', en: 'Photo: {hint}' },
     'photo.file': { el: 'Αρχείο {file}, αναλογία {ratio}', en: 'File {file}, ratio {ratio}' },
